@@ -5,6 +5,7 @@
 	says db "SAYS!", 13, 10, "$"
 	msg1 db "(A MEMORY ENH", "$"
 	msg2 db "ANCING GAME)", 13, 10, "$"
+	msg3 db "Click to start game", 13, 10, "$"
 .code
     main proc
 		mov ax, @data
@@ -103,8 +104,48 @@
 		mov ah, 09h
 		int 21h
 		
+		mov ah, 02h
+		mov bh, 00
+		mov dh, 14
+		mov dl, 27
+		int 10h
+		
+		int 33h
+		mov dx, offset msg3
+		mov ah, 09h
+		int 21h
+		
+		exit:
 		mov ah, 4ch
 		int 21h
 		
     main endp
+	
+	game proc
+		; Move the cursor
+		mov ah, 02h
+        mov bh, 00
+        mov dh, 00
+        mov dl, 00
+        int 10h
+		
+		; Set mode to drawing colors
+        mov ah, 06
+        mov al, 00
+		
+		mov ax, 1
+        int 33h
+        xor bx, bx
+		
+		 check:
+            mov ax, 3
+            int 33h
+
+            or bx, bx
+            jz check
+
+            test bx, 1
+            jnz upleft
+			
+	game endp
 end main
