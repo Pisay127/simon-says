@@ -6,7 +6,14 @@
 	msg1 db "(A MEMORY ENH", "$"
 	msg2 db "ANCING GAME)", 13, 10, "$"
 	msg3 db "PRESS ENTER TO START", 13, 10, "$"
-	;pattern db [0,1,2,3]
+	;pattern1 db [60,1,2]
+	;pattern2 db [0,1,2,3,4]
+	;pattern3 db [0,1,2,3,4,5]
+	;pattern4 db [0,1,2,3,4,5,6,7]
+	;pattern4 db [0,1,2,3,4,5,6,7,8]
+	;pattern5 db [0,1,2,3,4,5,6,7,8,9,10]
+	;pattern6 db [0,1,2,3,4,5,6,7,8,9,10,11]
+	;pattern7 db [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
 .code
     main proc
 		mov ax, @data
@@ -24,7 +31,7 @@
 		;lower right - green
 		mov ah, 06
 		mov al, 00
-		mov bh, 40
+		mov bh, 2fh
 		mov ch, 00
 		mov cl, 00
 		mov dh, 24
@@ -33,7 +40,7 @@
 		;upper right - purple
 		mov ah, 06
 		mov al, 00
-		mov bh, 100
+		mov bh, 5fh
 		mov ch, 00
 		mov cl, 00
 		mov dh, 12
@@ -42,7 +49,7 @@
 		;lower left - blue
 		mov ah, 06
 		mov al, 00
-		mov bh, 30
+		mov bh, 1fh
 		mov ch, 00
 		mov cl, 00
 		mov dh, 24
@@ -51,7 +58,7 @@
 		;upper left - red
 		mov ah, 06
 		mov al, 00
-		mov bh, 64
+		mov bh, 4fh
 		mov ch, 00
 		mov cl, 00
 		mov dh, 12
