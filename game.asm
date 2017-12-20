@@ -6,14 +6,14 @@
 	msg1 db "(A MEMORY ENH", "$"
 	msg2 db "ANCING GAME)", 13, 10, "$"
 	msg3 db "PRESS ENTER TO START", 13, 10, "$"
-	;pattern1 db [60,1,2]
-	;pattern2 db [0,1,2,3,4]
-	;pattern3 db [0,1,2,3,4,5]
-	;pattern4 db [0,1,2,3,4,5,6,7]
-	;pattern4 db [0,1,2,3,4,5,6,7,8]
-	;pattern5 db [0,1,2,3,4,5,6,7,8,9,10]
-	;pattern6 db [0,1,2,3,4,5,6,7,8,9,10,11]
-	;pattern7 db [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+	pattern1 db 31h,34h,33h
+	pattern2 db 34h,34h,33h,32h
+	pattern3 db 34h,31h,32h,33h,34h,32h
+	pattern4 db 31h,32h,33h,34h,32h,31h,31h
+	pattern5 db 34h,34h,32h,32h,31h,33h,34h,31h,31h,32h
+	pattern6 db 31h,32h,34h,32h,33h,31h,32h,33h,31h,34h,32h
+	pattern7 db 34h,32h,31h,33h,33h,32h,31h,34h,33h,34h,31h,32h,33h
+	time_delay db 2
 .code
     main proc
 		mov ax, @data
@@ -141,47 +141,35 @@
     main endp
 	
 	game proc NEAR
-		;lower right - green
+		;clear screen
 		mov ah, 06
 		mov al, 00
-		mov bh, 40
+		mov bh, 00
 		mov ch, 00
 		mov cl, 00
 		mov dh, 24
 		mov dl, 79
 		int 10h
-		;upper right - purple
-		mov ah, 06
-		mov al, 00
-		mov bh, 100
-		mov ch, 00
-		mov cl, 00
-		mov dh, 12
-		mov dl, 79
-		int 10h
-		;lower left - blue
-		mov ah, 06
-		mov al, 00
-		mov bh, 30
-		mov ch, 00
-		mov cl, 00
-		mov dh, 24
-		mov dl, 39
-		int 10h
-		;upper left - red
-		mov ah, 06
-		mov al, 00
-		mov bh, 64
-		mov ch, 00
-		mov cl, 00
-		mov dh, 12
-		mov dl, 39
-		int 10h
-	
+		
 		mov ah, 4ch
 		int 21h
 		
 		ret
 	game endp
+	
+	delay proc NEAR
+		mov ah,00
+		int 1Ah
+		mov bx, dx
+			
+		mov dx, bx
+		
+		delay_loop:
+			int 1ah
+			sub dx,bx
+			cmp dl, time_delay
+			jl delay_loop	
+		ret
+		delay endp
 	
 end main
